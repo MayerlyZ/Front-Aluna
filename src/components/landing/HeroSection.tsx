@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/UI/Button";
 import { ArrowRight, Zap } from "lucide-react";
 
 const HeroSection = () => {
@@ -56,17 +56,7 @@ const HeroSection = () => {
       <div className="container mx-auto px-6 relative z-10">
         <div className="max-w-4xl mx-auto text-center">
           {/* Badge */}
-          <motion.div
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 bg-primary/5 mb-8"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            <Zap className="w-4 h-4 text-primary" />
-            <span className="font-inter text-sm tracking-wider uppercase text-muted-foreground">
-              Plataforma IoT de Nueva Generación
-            </span>
-          </motion.div>
+        
 
           {/* Main Heading */}
           <motion.h1
@@ -99,13 +89,22 @@ const HeroSection = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.5 }}
           >
-            <Button variant="hero" size="xl" className="group">
+              <motion.div
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 bg-primary/5 mb-8 hover:bg-[#FF7F00]/10 hover:border-[#FF7F00]/50 transition-all duration-300 cursor-pointer group"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            <Zap className="w-4 h-4 text-primary group-hover:text-[#FF7F00] transition-colors" />
+            <span className="font-inter text-sm tracking-wider uppercase text-[#FF7F00]">
+              Descubre Aluna
+            </span>
+          </motion.div>
+            {/* <Button variant="hero" size="xl" className="group">
               Descubre ALUNA
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </Button>
-            <Button variant="hero-outline" size="xl">
-              Ver Demo
-            </Button>
+            </Button> */}
+           
           </motion.div>
 
           {/* Stats */}
@@ -116,9 +115,9 @@ const HeroSection = () => {
             transition={{ duration: 0.8, delay: 0.7 }}
           >
             {[
-              { value: "10K+", label: "Dispositivos Conectados" },
-              { value: "99.9%", label: "Uptime Garantizado" },
-              { value: "50ms", label: "Latencia Promedio" },
+              { value: "20+", label: "Dispositivos Conectados" },
+              { value: "99%", label: "Uptime Garantizado" },
+              { value: "<100ms", label: "Latencia Promedio" },
             ].map((stat, index) => (
               <div key={index} className="text-center">
                 <motion.div
@@ -139,7 +138,7 @@ const HeroSection = () => {
       </div>
 
       {/* Bottom Gradient Fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent" />
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-linear-to-t from-background to-transparent" />
     </section>
   );
 };
