@@ -179,7 +179,7 @@ const SplashScreen = ({ onComplete }: SplashScreenProps) => {
 
             {/* Tagline */}
             <motion.p
-              className="mt-6 font-inter text-lg tracking-[0.3em] text-muted-foreground uppercase text-white"
+              className="mt-6 font-inter text-sm md:text-lg tracking-[0.15em] md:tracking-[0.3em] text-muted-foreground uppercase text-white px-4"
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: phase === "logo" ? 1 : 0, y: phase === "logo" ? 0 : 10 }}
               transition={{ duration: 0.5, delay: 1 }}
