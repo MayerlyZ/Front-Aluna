@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/UI/Button';
 import { Mail, Lock, Eye, EyeOff } from 'lucide-react';
@@ -11,6 +12,7 @@ export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
+  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -21,7 +23,10 @@ export default function LoginForm() {
       // Simular llamada a API
       await new Promise(resolve => setTimeout(resolve, 1000));
       console.log('Login attempt:', { email, password });
+      
       // Aquí iría tu lógica de autenticación
+      // Si es exitosa, redirigir a Users dashboard
+      router.push('/Users');
     } catch (err) {
       setError('Error al iniciar sesión. Intenta nuevamente.');
     } finally {
