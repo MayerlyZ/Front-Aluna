@@ -55,13 +55,15 @@ export class AuthService {
 
   /**
    * Inicia sesión con credenciales de email y contraseña
-   * Consume el endpoint: POST /api/auth/callback/credentials (NextAuth)
+   * Consume el endpoint: POST /api/auth/signin (NextAuth)
    */
   static async login(credentials: LoginCredentials): Promise<AuthResponse> {
     try {
-      const response = await this.getAxiosInstance().post('/auth/callback/credentials', {
+      const response = await this.getAxiosInstance().post('/auth/signin', {
         email: credentials.email,
         password: credentials.password,
+        callbackUrl: '/Users',
+        redirect: false,
       });
 
       return {

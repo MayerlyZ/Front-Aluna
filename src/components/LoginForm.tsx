@@ -62,7 +62,7 @@ export default function LoginForm() {
 
   return (
     <motion.div
-      className="w-full max-w-md"
+      className="w-full max-w-md px-4 md:px-0"
       variants={containerVariants}
       initial="hidden"
       animate="visible"
