@@ -25,6 +25,30 @@ export default function LoginForm() {
       const result = await AuthService.login({ email, password });
       
       if (result.ok) {
+        // Guardar datos básicos del usuario en localStorage basándose en el email
+        const userData = {
+          fullName: email.split('@')[0], // Usar la parte antes del @ como nombre temporal
+          email: email,
+          phone: '',
+          role: 'user',
+          dateOfBirth: '',
+        };
+        localStorage.setItem('user', JSON.stringify(userData));
+        
+        // Intentar obtener datos adicionales de la sesión
+        const session = await AuthService.getSession();
+        if (session?.user) {
+          // Si la sesión tiene más datos, actualizar
+          const updatedUserData = {
+            fullName: session.user.name || userData.fullName,
+            email: session.user.email || email,
+            phone: session.user.phone || '',
+            role: session.user.role || 'user',
+            dateOfBirth: session.user.dateOfBirth || '',
+          };
+          localStorage.setItem('user', JSON.stringify(updatedUserData));
+        }
+        
         // Redirigir al dashboard de usuarios
         router.push('/Users');
       } else {

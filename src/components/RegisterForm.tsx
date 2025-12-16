@@ -107,6 +107,16 @@ export default function RegisterForm() {
       });
 
       if (result.ok) {
+        // Guardar los datos del usuario en localStorage
+        const userData = {
+          fullName: formData.fullName,
+          email: formData.email,
+          phone: formData.phone,
+          dateOfBirth: formData.dateOfBirth,
+          role: formData.role,
+        };
+        localStorage.setItem('user', JSON.stringify(userData));
+        
         // Registro exitoso - redirigir al login
         router.push('/login?registered=true');
       } else {
