@@ -55,20 +55,31 @@ export class AuthService {
 
   /**
    * Inicia sesión con credenciales de email y contraseña
-   * Consume el endpoint: POST /api/auth/signin (NextAuth)
+   * Flujo NextAuth credenciales: CSRF + callback/credentials (form-urlencoded)
    */
   static async login(credentials: LoginCredentials): Promise<AuthResponse> {
     try {
-      const response = await this.getAxiosInstance().post('/auth/signin', {
-        email: credentials.email,
-        password: credentials.password,
-        callbackUrl: '/Users',
-        redirect: false,
+      const axiosInst = this.getAxiosInstance();
+
+      // 1) Obtener CSRF token (trae la cookie __Host-next-auth.csrf-token)
+      const csrfResp = await axiosInst.get('/auth/csrf');
+      const csrfToken = csrfResp.data?.csrfToken;
+      if (!csrfToken) throw new Error('No CSRF token');
+
+      // 2) Enviar credenciales a callback/credentials como form-urlencoded
+      const form = new URLSearchParams();
+      form.append('csrfToken', csrfToken);
+      form.append('email', credentials.email);
+      form.append('password', credentials.password);
+      form.append('json', 'true');
+
+      const resp = await axiosInst.post('/auth/callback/credentials', form, {
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       });
 
       return {
         ok: true,
-        data: response.data,
+        data: resp.data,
       };
     } catch (error: any) {
       console.error('Login error:', error);
@@ -167,3 +178,4 @@ export class AuthService {
     }
   }
 }
+
