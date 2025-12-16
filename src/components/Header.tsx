@@ -2,21 +2,28 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import { Button } from "@/components/UI/Button";
 import { Menu, X, User } from "lucide-react";
 
 const navItems = [
   { label: "Inicio", href: "/" },
-  { label: "Beneficios", href: "/beneficios" },
-  { label: "Seguridad", href: "/seguridad" },
-  { label: "Recursos", href: "/recursos" },
-  { label: "Contacto", href: "/contacto" },
+  { label: "Beneficios", href: "/benefits" },
+  { label: "Seguridad", href: "/security" },
+  { label: "Recursos", href: "/resources" },
+  { label: "Contacto", href: "/contact" },
 ];
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const pathname = usePathname();
+
+  // No mostrar el Header si estamos en la ruta /Users
+  if (pathname.startsWith('/Users')) {
+    return null;
+  }
 
   useEffect(() => {
     const handleScroll = () => {
@@ -28,7 +35,7 @@ const Header = () => {
 
   return (
     <motion.header
-      className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
           ? "bg-background/80 backdrop-blur-lg border-b border-border"
           : "bg-transparent"
