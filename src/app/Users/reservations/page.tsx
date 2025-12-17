@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { ChevronLeft, ChevronRight, Clock, Check, X, Users, Wifi, Coffee } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -63,6 +63,14 @@ const spaces: Space[] = [
 ];
 
 export default function ReservationsPage() {
+  return (
+    <Suspense fallback={null}>
+      <ReservationsContent />
+    </Suspense>
+  );
+}
+
+function ReservationsContent() {
   const searchParams = useSearchParams();
   const spaceId = searchParams.get('spaceId');
   
